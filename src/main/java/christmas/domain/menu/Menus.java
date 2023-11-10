@@ -7,7 +7,7 @@ import christmas.domain.common.Money;
 import java.util.List;
 import java.util.Objects;
 
-class Menus {
+public class Menus {
 
     private static final String UNKNOWN_MENUS_MESSAGE = "알 수 없는 메뉴 목록입니다.";
     private static final String UNKNOWN_MENU_MESSAGE = "알 수 없는 메뉴가 포함되어 있습니다.";

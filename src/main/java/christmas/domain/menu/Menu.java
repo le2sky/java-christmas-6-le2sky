@@ -3,7 +3,7 @@ package christmas.domain.menu;
 import christmas.domain.common.Money;
 import java.util.Objects;
 
-class Menu {
+public class Menu {
 
     private final MenuName name;
     private final Money price;
