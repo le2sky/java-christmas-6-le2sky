@@ -1,7 +1,9 @@
 package christmas.domain.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,5 +75,18 @@ class OrderTest {
         assertThatThrownBy(() -> Order.from(Collections.emptyList()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("적어도 1개 이상 주문해야합니다.");
+    }
+
+    @DisplayName("할인 이전 총 주문 금액을 계산할 수 있다.")
+    @Test
+    void calculateTotalPrice() {
+        Order order = Order.from(List.of(
+                OrderLineItem.of(Menu.of("까르보나라", 1_000), 2),
+                OrderLineItem.of(Menu.of("불닭까르보나라", 1_000), 2)
+        ));
+
+        Money result = order.calculateTotalPrice();
+
+        assertThat(result).isEqualTo(Money.from(4_000));
     }
 }

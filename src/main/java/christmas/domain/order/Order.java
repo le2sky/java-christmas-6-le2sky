@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.domain.common.Money;
 import java.util.List;
 
 class Order {
@@ -14,5 +15,12 @@ class Order {
         OrderRule.checkSatisfiedLineItem(lineItems);
 
         return new Order(lineItems);
+    }
+
+    public Money calculateTotalPrice() {
+        return lineItems.stream()
+                .map(OrderLineItem::calculateEachPrice)
+                .reduce(Money::add)
+                .orElseGet(Money::zero);
     }
 }
