@@ -1,5 +1,7 @@
 package christmas.domain.common;
 
+import static christmas.util.ObjectUtil.requireNonNull;
+
 import java.util.Objects;
 
 public class Money {
@@ -17,21 +19,15 @@ public class Money {
     }
 
     public Money add(Money target) {
-        checkMoneyNonNull(target);
+        requireNonNull(target, UNKNOWN_MONEY_MESSAGE);
 
         return new Money(this.amount + target.amount);
     }
 
     public Money subtract(Money target) {
-        checkMoneyNonNull(target);
+        requireNonNull(target, UNKNOWN_MONEY_MESSAGE);
 
         return new Money(this.amount - target.amount);
-    }
-
-    private void checkMoneyNonNull(Money target) {
-        if (Objects.isNull(target)) {
-            throw new IllegalArgumentException(UNKNOWN_MONEY_MESSAGE);
-        }
     }
 
     @Override

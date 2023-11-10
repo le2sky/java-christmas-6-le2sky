@@ -1,5 +1,8 @@
 package christmas.domain.menu;
 
+import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.util.StringUtil.requireNotBlank;
+
 import java.util.Objects;
 
 class MenuName {
@@ -14,26 +17,10 @@ class MenuName {
     }
 
     public static MenuName from(String name) {
-        validate(name);
+        requireNonNull(name, UNKNOWN_NAME_MESSAGE);
+        requireNotBlank(name, INVALID_NAME_LENGTH_MESSAGE);
 
         return new MenuName(name);
-    }
-
-    private static void validate(String name) {
-        checkNameNonNull(name);
-        checkNameEmpty(name);
-    }
-
-    private static void checkNameNonNull(String name) {
-        if (Objects.isNull(name)) {
-            throw new IllegalArgumentException(UNKNOWN_NAME_MESSAGE);
-        }
-    }
-
-    private static void checkNameEmpty(String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException(INVALID_NAME_LENGTH_MESSAGE);
-        }
     }
 
     @Override
