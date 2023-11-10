@@ -14,7 +14,7 @@ class OrderLineItemTest {
         OrderLineItem item = OrderLineItem.of(Menu.of("까르보나라", 1_000), 2);
     }
 
-    @DisplayName("알 수 없는 메뉴로 주문 아이템을 생성할 수 없다.")
+    @DisplayName("알 수 없는 메뉴로 주문 항목을 생성할 수 없다.")
     @Test
     void checkMenuNonNull() {
         assertThatThrownBy(() -> OrderLineItem.of(null, 2))
