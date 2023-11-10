@@ -4,6 +4,7 @@ import static christmas.util.ObjectUtil.requireIncludeNonNull;
 import static christmas.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.common.Money;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +31,12 @@ public class Menus {
                 .map(Menu::getPrice)
                 .reduce(Money::add)
                 .orElseGet(Money::zero);
+    }
+
+    public boolean containsAll(Menus other) {
+        requireNonNull(other, UNKNOWN_MENUS_MESSAGE);
+
+        return new HashSet<>(menus).containsAll(other.menus);
     }
 
     @Override
