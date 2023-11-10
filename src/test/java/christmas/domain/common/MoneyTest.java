@@ -65,4 +65,14 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 돈과 해당 연산을 수행할 수 없습니다.");
     }
+
+    @DisplayName("곱하기 연산을 할 수 있다.")
+    @Test
+    void multiply() {
+        Money money = Money.from(1_000);
+
+        Money result = money.multiply(2);
+
+        assertThat(result).isEqualTo(Money.from(2_000));
+    }
 }

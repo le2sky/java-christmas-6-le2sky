@@ -3,7 +3,6 @@ package christmas.domain.menu;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.common.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -42,18 +41,6 @@ class MenusTest {
         assertThatThrownBy(() -> Menus.from(menus))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 메뉴가 포함되어 있습니다.");
-    }
-
-    @DisplayName("할인 전 총주문 금액을 계산할 수 있다.")
-    @Test
-    void calculateTotalPrice() {
-        Menus menus = Menus.from(List.of(
-                Menu.of("까르보나라", 1_000),
-                Menu.of("불닭볶음면", 2_000)));
-
-        Money result = menus.calculateTotalPrice();
-
-        assertThat(result).isEqualTo(Money.from(3_000));
     }
 
     @DisplayName("메뉴 목록이 주어지면, 해당 메뉴들을 포함하는지 확인할 수 있다.")

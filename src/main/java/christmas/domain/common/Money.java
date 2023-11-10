@@ -35,6 +35,10 @@ public class Money {
         return new Money(this.amount - target.amount);
     }
 
+    public Money multiply(int multiplier) {
+        return new Money(this.amount * multiplier);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

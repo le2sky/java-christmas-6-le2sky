@@ -1,7 +1,9 @@
 package christmas.domain.order;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,5 +30,15 @@ class OrderLineItemTest {
         assertThatThrownBy(() -> OrderLineItem.of(Menu.of("까르보나라", 1_000), 0))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("각 주문 항목의 수량은 적어도 1개 이상이어야 합니다.");
+    }
+
+    @DisplayName("각 주문 항목의 금액을 계산할 수 있다.")
+    @Test
+    void calculateEachPrice() {
+        OrderLineItem item = OrderLineItem.of(Menu.of("까르보나라", 1_000), 2);
+
+        Money result = item.calculateEachPrice();
+
+        assertThat(result).isEqualTo(Money.from(2_000));
     }
 }

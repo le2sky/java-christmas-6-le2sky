@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.util.NumberUtil.requirePositiveNumber;
 import static christmas.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import java.util.Objects;
 
@@ -24,6 +25,10 @@ public class OrderLineItem {
         requirePositiveNumber(quantity, INVALID_QUANTITY_MESSAGE);
 
         return new OrderLineItem(menu, quantity);
+    }
+
+    public Money calculateEachPrice() {
+        return menu.calculatePriceWith(quantity);
     }
 
     public int getQuantity() {

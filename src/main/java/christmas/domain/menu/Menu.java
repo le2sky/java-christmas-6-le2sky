@@ -17,8 +17,8 @@ public class Menu {
         return new Menu(MenuName.from(name), Money.from(price));
     }
 
-    public Money getPrice() {
-        return price;
+    public Money calculatePriceWith(int quantity) {
+        return price.multiply(quantity);
     }
 
     @Override
