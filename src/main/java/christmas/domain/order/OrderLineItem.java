@@ -4,6 +4,7 @@ import static christmas.util.NumberUtil.requirePositiveNumber;
 import static christmas.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.menu.Menu;
+import java.util.Objects;
 
 public class OrderLineItem {
 
@@ -23,5 +24,22 @@ public class OrderLineItem {
         requirePositiveNumber(quantity, INVALID_QUANTITY_MESSAGE);
 
         return new OrderLineItem(menu, quantity);
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderLineItem that = (OrderLineItem) o;
+        return Objects.equals(menu, that.menu);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(menu);
     }
 }
