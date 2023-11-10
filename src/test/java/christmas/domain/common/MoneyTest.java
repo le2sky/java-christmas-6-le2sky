@@ -17,6 +17,15 @@ class MoneyTest {
         assertThat(money).isEqualTo(other);
     }
 
+    @DisplayName("0원 생성 테스트")
+    @Test
+    void zero() {
+        Money money = Money.zero();
+        Money other = Money.from(0);
+
+        assertThat(money).isEqualTo(other);
+    }
+
     @DisplayName("다른 돈과 더하기 연산을 수행할 수 있다.")
     @Test
     void add() {

@@ -3,6 +3,7 @@ package christmas.domain.menu;
 import static christmas.util.ObjectUtil.requireIncludeNonNull;
 import static christmas.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.common.Money;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +23,13 @@ class Menus {
         requireIncludeNonNull(menus, UNKNOWN_MENU_MESSAGE);
 
         return new Menus(menus);
+    }
+
+    public Money calculateTotalPrice() {
+        return menus.stream()
+                .map(Menu::getPrice)
+                .reduce(Money::add)
+                .orElseGet(Money::zero);
     }
 
     @Override
