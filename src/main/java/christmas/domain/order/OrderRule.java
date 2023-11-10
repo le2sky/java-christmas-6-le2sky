@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.util.ObjectUtil.requireIncludeNonNull;
 import static christmas.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.menu.Menus;
 import java.util.List;
 
 class OrderRule {
@@ -13,6 +14,7 @@ class OrderRule {
     private static final String DUPLICATED_LINE_ITEM_MESSAGE = "중복된 주문 항목이 존재합니다.";
     private static final String EXCEED_ORDER_QUANTITY_MESSAGE = "최대 주문 수량은 " + MAX_ORDER_QUANTITY + "개입니다.";
     private static final String EMPTY_LINE_ITEM_MESSAGE = "적어도 1개 이상 주문해야합니다.";
+    private static final String NOT_EXIST_LINE_ITEM_MESSAGE = "존재하지 않는 상품은 주문할 수 없습니다.";
 
     public static void checkSatisfiedLineItem(List<OrderLineItem> lineItems) {
         requireNonNull(lineItems, UNKNOWN_LINE_ITEMS_MESSAGE);
@@ -44,5 +46,21 @@ class OrderRule {
                 .map(OrderLineItem::getQuantity)
                 .reduce(Integer::sum)
                 .orElseThrow(() -> new IllegalArgumentException(EMPTY_LINE_ITEM_MESSAGE));
+    }
+
+    public static void checkIncludedLineItem(List<OrderLineItem> lineItems, Menus menus) {
+        if (isNotExistMenus(menus, mapToMenus(lineItems))) {
+            throw new IllegalArgumentException(NOT_EXIST_LINE_ITEM_MESSAGE);
+        }
+    }
+
+    private static Menus mapToMenus(List<OrderLineItem> lineItems) {
+        return Menus.from(lineItems.stream()
+                .map(OrderLineItem::getMenu)
+                .toList());
+    }
+
+    private static boolean isNotExistMenus(Menus baseMenus, Menus orderedMenus) {
+        return !baseMenus.containsAll(orderedMenus);
     }
 }
