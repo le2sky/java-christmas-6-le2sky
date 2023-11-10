@@ -16,7 +16,7 @@ class OrderRule {
     private static final String EMPTY_LINE_ITEM_MESSAGE = "적어도 1개 이상 주문해야합니다.";
     private static final String NOT_EXIST_LINE_ITEM_MESSAGE = "존재하지 않는 상품은 주문할 수 없습니다.";
 
-    public static void checkSatisfiedLineItem(List<OrderLineItem> lineItems) {
+    public static void validateLineItem(List<OrderLineItem> lineItems) {
         requireNonNull(lineItems, UNKNOWN_LINE_ITEMS_MESSAGE);
         requireIncludeNonNull(lineItems, UNKNOWN_LINE_ITEM_MESSAGE);
         checkDuplicatedItem(lineItems);
@@ -48,7 +48,7 @@ class OrderRule {
                 .orElseThrow(() -> new IllegalArgumentException(EMPTY_LINE_ITEM_MESSAGE));
     }
 
-    public static void checkIncludedLineItem(List<OrderLineItem> lineItems, Menus menus) {
+    public static void validateIncludedLineItem(List<OrderLineItem> lineItems, Menus menus) {
         if (isNotExistMenus(menus, mapToMenus(lineItems))) {
             throw new IllegalArgumentException(NOT_EXIST_LINE_ITEM_MESSAGE);
         }

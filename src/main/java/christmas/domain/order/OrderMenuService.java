@@ -22,8 +22,8 @@ class OrderMenuService {
     }
 
     public Order order(List<OrderLineItem> lineItems) {
-        OrderRule.checkSatisfiedLineItem(lineItems);
-        OrderRule.checkIncludedLineItem(lineItems, menus);
+        OrderRule.validateLineItem(lineItems);
+        OrderRule.validateIncludedLineItem(lineItems, menus);
 
         return Order.from(lineItems);
     }
