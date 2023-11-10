@@ -1,7 +1,6 @@
-package christmas.domain;
+package christmas.domain.menu;
 
 import christmas.domain.common.Money;
-
 import java.util.Objects;
 
 class Menu {
