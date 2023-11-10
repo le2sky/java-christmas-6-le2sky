@@ -11,9 +11,7 @@ class Order {
         this.lineItems = lineItems;
     }
 
-    public static Order from(List<OrderLineItem> lineItems) {
-        OrderRule.checkSatisfiedLineItem(lineItems);
-
+    static Order from(List<OrderLineItem> lineItems) {
         return new Order(lineItems);
     }
 
