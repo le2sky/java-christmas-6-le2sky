@@ -7,7 +7,7 @@ import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import java.util.Objects;
 
-class OrderLineItem {
+public class OrderLineItem {
 
     private static final String UNKNOWN_MENU_MESSAGE = "알 수 없는 메뉴입니다.";
     private static final String INVALID_QUANTITY_MESSAGE = "각 주문 항목의 수량은 적어도 1개 이상이어야 합니다.";

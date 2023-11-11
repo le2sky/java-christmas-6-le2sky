@@ -3,7 +3,7 @@ package christmas.domain.order;
 import christmas.domain.common.Money;
 import java.util.List;
 
-class Order {
+public class Order {
 
     private final List<OrderLineItem> lineItems;
 

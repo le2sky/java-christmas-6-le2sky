@@ -5,7 +5,7 @@ import static christmas.util.ObjectUtil.requireNonNull;
 import christmas.domain.menu.Menus;
 import java.util.List;
 
-class OrderMenuService {
+public class OrderMenuService {
 
     private static final String UNKNOWN_MENUS_MESSAGE = "알 수 없는 메뉴 목록입니다.";
 
