@@ -6,6 +6,9 @@ import java.util.function.Supplier;
 
 public class ObjectUtil {
 
+    private ObjectUtil() {
+    }
+
     public static <T> void requireIncludeNonNull(List<T> obj, String message) throws IllegalArgumentException {
         obj.forEach(element -> requireNonNull(element, message));
     }

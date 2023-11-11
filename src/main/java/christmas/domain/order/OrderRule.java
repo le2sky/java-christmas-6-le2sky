@@ -17,6 +17,9 @@ class OrderRule {
     private static final String EMPTY_LINE_ITEM_MESSAGE = "적어도 1개 이상 주문해야합니다.";
     private static final String NOT_EXIST_LINE_ITEM_MESSAGE = "존재하지 않는 상품은 주문할 수 없습니다.";
 
+    private OrderRule() {
+    }
+
     public static void validateLineItem(List<OrderLineItem> lineItems) {
         requireNonNull(lineItems, UNKNOWN_LINE_ITEMS_MESSAGE);
         requireIncludeNonNull(lineItems, UNKNOWN_LINE_ITEM_MESSAGE);
