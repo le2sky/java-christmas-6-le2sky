@@ -23,7 +23,7 @@ class OrderMenuService {
 
     public Order order(List<OrderLineItem> lineItems) {
         OrderRule.validateLineItem(lineItems);
-        OrderRule.validateIncludedLineItem(lineItems, menus);
+        OrderRule.validateExistLineItem(lineItems, menus);
 
         return Order.from(lineItems);
     }
