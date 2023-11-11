@@ -38,6 +38,16 @@ class OrderServiceTest {
                 .hasMessage("유효한 요청을 입력해주세요.");
     }
 
+    @DisplayName("알 수 없는 항목 리스트가 포함된 요청으로 신규 주문을 생성할 수 없다.")
+    @Test
+    void requestListNonNull() {
+        OrderRequest orderRequest = new OrderRequest(null);
+
+        assertThatThrownBy(() -> orderService.order(orderRequest))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("유효한 요청을 입력해주세요.");
+    }
+
     @DisplayName("알 수 없는 항목이 포함된 요청으로 신규 주문을 생성할 수 없다.")
     @Test
     void requestIncludeNull() {

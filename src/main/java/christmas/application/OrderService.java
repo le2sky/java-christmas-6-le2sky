@@ -31,6 +31,7 @@ public class OrderService {
 
     private List<OrderLineItem> mapToDomainEntity(OrderRequest request) {
         List<OrderLineItemRequest> orderLineItemRequests = request.orderLineItemRequests();
+        requireNonNull(orderLineItemRequests, INVALID_REQUEST_MESSAGE);
         requireIncludeNonNull(orderLineItemRequests, INVALID_REQUEST_MESSAGE);
 
         return orderLineItemRequests.stream()
