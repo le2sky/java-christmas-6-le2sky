@@ -1,14 +1,18 @@
 package christmas.infrastructure.persistence.menu;
 
+import static christmas.util.ObjectUtil.requireNonNull;
+
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;
 import christmas.domain.menu.Menus;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
-// TODO : 정말 Repository가 필요한지 고민해볼 것
 public class SimpleMenuRepository implements MenuRepository {
+
+    private static final String NOT_FOUND_MENU_MESSAGE = "존재하지 않는 메뉴입니다.";
 
     private final Map<String, Menu> store = new HashMap<>();
 
@@ -29,7 +33,10 @@ public class SimpleMenuRepository implements MenuRepository {
 
     @Override
     public Menu findByName(String name) {
-        return store.get(name);
+        Menu foundMenu = store.get(name);
+        requireNonNull(foundMenu, () -> new NoSuchElementException(NOT_FOUND_MENU_MESSAGE));
+
+        return foundMenu;
     }
 
     @Override
