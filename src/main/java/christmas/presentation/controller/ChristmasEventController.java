@@ -36,5 +36,6 @@ public class ChristmasEventController {
     private void printOrderResult(Order order) {
         OutputView.printResultHeader();
         OutputView.printOrderResult(orderQueryService.queryOrderResult(order));
+        OutputView.printPriceBeforeApplyDiscount(order.calculateTotalPrice());
     }
 }

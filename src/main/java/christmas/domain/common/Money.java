@@ -8,6 +8,7 @@ public class Money {
 
     private static final int ZERO_MONEY_AMOUNT = 0;
     private static final String UNKNOWN_MONEY_MESSAGE = "알 수 없는 돈과 해당 연산을 수행할 수 없습니다.";
+    public static final String CURRENCY = "원";
 
     private final long amount;
 
@@ -37,6 +38,10 @@ public class Money {
 
     public Money multiply(int multiplier) {
         return new Money(this.amount * multiplier);
+    }
+
+    public long getAmount() {
+        return amount;
     }
 
     @Override
