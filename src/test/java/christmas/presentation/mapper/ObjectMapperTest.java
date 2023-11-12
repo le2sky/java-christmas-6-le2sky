@@ -24,6 +24,30 @@ class ObjectMapperTest {
         assertThat(result).isEqualTo(expected);
     }
 
+    @DisplayName("주어진 문자열을 숫자로 만들 수 있다.")
+    @Test
+    void mapToInt() {
+        int result = ObjectMapper.mapToInt("2");
+
+        assertThat(result).isEqualTo(2);
+    }
+
+    @DisplayName("알 수 없는 문자열이 주어진 경우, 주문 요청 객체를 매핑할 수 없다.")
+    @Test
+    void checkInputNonNull() {
+        assertThatThrownBy(() -> ObjectMapper.mapToOrderRequest(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("유효한 문자열을 입력해주세요.");
+    }
+
+    @DisplayName("알 수 없는 문자열이 주어진 경우, 숫자로 매핑할 수 없다.")
+    @Test
+    void checkInputNonNullForNumber() {
+        assertThatThrownBy(() -> ObjectMapper.mapToInt(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("유효한 문자열을 입력해주세요.");
+    }
+
     @DisplayName("요청 포맷 예외 - index out of bounds exception")
     @ValueSource(strings = {"가지볶음-2,가지볶음-", "가지볶음3,", " "})
     @ParameterizedTest

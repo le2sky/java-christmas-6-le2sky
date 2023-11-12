@@ -7,7 +7,7 @@ import christmas.global.util.CurrencyFormatter;
 
 public class OutputView {
 
-    private static final String RESULT_HEADER = "12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
+    private static final String RESULT_HEADER_FORMAT = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n";
     private static final String ORDER_RESULT_HEADER = "<주문 메뉴>";
     private static final String ORDER_ITEM_FORMAT = "%s %d개%n";
     private static final String ORDER_PRICE_BEFORE_DISCOUNT_HEADER = "<할인 전 총주문 금액>";
@@ -16,18 +16,18 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printResultHeader() {
-        System.out.println(RESULT_HEADER);
+    public static void printResultHeader(int month, int dayOfMonth) {
+        System.out.format(RESULT_HEADER_FORMAT, month, dayOfMonth);
         System.out.println();
     }
 
-    public static void printOrderResult(OrderResponse orderResponse) {
+    public static void printOrderItem(OrderResponse orderResponse) {
         System.out.println(ORDER_RESULT_HEADER);
-        orderResponse.orderLineItemResponses().forEach(OutputView::printOrderItem);
+        orderResponse.orderLineItemResponses().forEach(OutputView::printEachOrderItem);
         System.out.println();
     }
 
-    private static void printOrderItem(OrderLineItemResponse orderLineItemResponse) {
+    private static void printEachOrderItem(OrderLineItemResponse orderLineItemResponse) {
         System.out.format(ORDER_ITEM_FORMAT, orderLineItemResponse.name(), orderLineItemResponse.quantity());
     }
 
