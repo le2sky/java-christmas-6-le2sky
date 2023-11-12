@@ -7,7 +7,7 @@ import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
 import christmas.domain.common.Money;
 import christmas.domain.order.Order;
-import christmas.infrastructure.persistence.menu.SimpleMenuRepository;
+import christmas.infrastructure.SimpleMenuRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

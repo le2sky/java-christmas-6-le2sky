@@ -8,7 +8,7 @@ import christmas.application.request.OrderRequest;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.order.Order;
-import christmas.infrastructure.persistence.menu.SimpleMenuRepository;
+import christmas.infrastructure.SimpleMenuRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;

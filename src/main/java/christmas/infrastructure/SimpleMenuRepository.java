@@ -1,4 +1,4 @@
-package christmas.infrastructure.persistence.menu;
+package christmas.infrastructure;
 
 import static christmas.util.ObjectUtil.requireNonNull;
 
