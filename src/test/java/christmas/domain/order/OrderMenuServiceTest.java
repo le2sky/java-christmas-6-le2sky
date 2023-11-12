@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.common.Money;
-import christmas.domain.menu.Menu;
 import christmas.domain.menu.Menus;
+import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -16,11 +16,10 @@ class OrderMenuServiceTest {
 
     private final OrderMenuService orderMenuService = OrderMenuService.from(createMenus());
 
-
     private Menus createMenus() {
         return Menus.from(List.of(
-                Menu.of("까르보나라", 1_000),
-                Menu.of("불닭볶음면", 2_000)));
+                MainMenu.of("까르보나라", 1_000),
+                MainMenu.of("불닭볶음면", 2_000)));
     }
 
     @DisplayName("생성 테스트")
@@ -42,7 +41,7 @@ class OrderMenuServiceTest {
     void order() {
         OrderMenuService orderMenuService = OrderMenuService.from(createMenus());
 
-        Order order = orderMenuService.order(List.of(OrderLineItem.of(Menu.of("까르보나라", 1_000), 2)));
+        Order order = orderMenuService.order(List.of(OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2)));
 
         assertThat(order.calculateTotalPrice()).isEqualTo(Money.from(2_000));
     }
@@ -59,7 +58,7 @@ class OrderMenuServiceTest {
     @Test
     void checkLineItemsIncludeNull() {
         List<OrderLineItem> lineItems = new ArrayList<>();
-        lineItems.add(OrderLineItem.of(Menu.of("까르보나라", 1_000), 2));
+        lineItems.add(OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2));
         lineItems.add(null);
 
         assertThatThrownBy(() -> orderMenuService.order(lineItems))
@@ -73,7 +72,7 @@ class OrderMenuServiceTest {
         List<OrderLineItem> lineItems = new ArrayList<>();
         int maxCount = 21;
         for (int count = 0; count < maxCount; count = count + 2) {
-            lineItems.add(OrderLineItem.of(Menu.of("까르보나라" + count, 1_000), 2));
+            lineItems.add(OrderLineItem.of(MainMenu.of("까르보나라" + count, 1_000), 2));
         }
 
         assertThatThrownBy(() -> orderMenuService.order(lineItems))
@@ -85,8 +84,8 @@ class OrderMenuServiceTest {
     @Test
     void checkDuplicatedItem() {
         List<OrderLineItem> duplicatedLineItems = List.of(
-                OrderLineItem.of(Menu.of("까르보나라", 1_000), 2),
-                OrderLineItem.of(Menu.of("까르보나라", 1_000), 1)
+                OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2),
+                OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 1)
         );
 
         assertThatThrownBy(() -> orderMenuService.order(duplicatedLineItems))
@@ -106,7 +105,7 @@ class OrderMenuServiceTest {
     @Test
     void checkMenusNotIncludeItem() {
         List<OrderLineItem> notIncludedLineItems = List.of(
-                OrderLineItem.of(Menu.of("존재하지 않는 상품명", 1_000), 2)
+                OrderLineItem.of(MainMenu.of("존재하지 않는 상품명", 1_000), 2)
         );
 
         assertThatThrownBy(() -> orderMenuService.order(notIncludedLineItems))

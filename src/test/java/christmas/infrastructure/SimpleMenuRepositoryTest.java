@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.Menus;
+import christmas.domain.menu.specific.DessertMenu;
+import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -20,9 +22,9 @@ class SimpleMenuRepositoryTest {
         Menus result = simpleMenuRepository.findAll();
 
         Menus menus = Menus.from(List.of(
-                Menu.of("크리스마스파스타", 25_000),
-                Menu.of("초코케이크", 15_000),
-                Menu.of("티본스테이크", 55_000)));
+                DessertMenu.of("초코케이크", 15_000),
+                MainMenu.of("크리스마스파스타", 25_000),
+                MainMenu.of("티본스테이크", 55_000)));
         assertThat(result.containsAll(menus)).isTrue();
     }
 
@@ -31,7 +33,7 @@ class SimpleMenuRepositoryTest {
     void findByName() {
         Menu result = simpleMenuRepository.findByName("아이스크림");
 
-        assertThat(result).isEqualTo(Menu.of("아이스크림", 5_000));
+        assertThat(result).isEqualTo(DessertMenu.of("아이스크림", 5_000));
     }
 
     @DisplayName("존재하지 않는 메뉴를 불러오면, 예외를 발생한다.")

@@ -5,7 +5,7 @@ import static christmas.util.StringUtil.requireNotBlank;
 
 import java.util.Objects;
 
-class MenuName {
+public class MenuName {
 
     private static final String UNKNOWN_NAME_MESSAGE = "알 수 없는 이름입니다.";
     private static final String INVALID_NAME_LENGTH_MESSAGE = "메뉴의 이름은 공백을 제외한, 최소 1글자 이상이어야 합니다.";

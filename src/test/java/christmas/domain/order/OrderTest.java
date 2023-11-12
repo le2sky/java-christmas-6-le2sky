@@ -3,7 +3,7 @@ package christmas.domain.order;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.common.Money;
-import christmas.domain.menu.Menu;
+import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -14,8 +14,8 @@ class OrderTest {
     @Test
     void create() {
         Order order = Order.from(List.of(
-                OrderLineItem.of(Menu.of("까르보나라", 1_000), 2),
-                OrderLineItem.of(Menu.of("불닭까르보나라", 1_000), 2)
+                OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2),
+                OrderLineItem.of(MainMenu.of("불닭까르보나라", 1_000), 2)
         ));
     }
 
@@ -23,8 +23,8 @@ class OrderTest {
     @Test
     void calculateTotalPrice() {
         Order order = Order.from(List.of(
-                OrderLineItem.of(Menu.of("까르보나라", 1_000), 2),
-                OrderLineItem.of(Menu.of("불닭까르보나라", 1_000), 2)
+                OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2),
+                OrderLineItem.of(MainMenu.of("불닭까르보나라", 1_000), 2)
         ));
 
         Money result = order.calculateTotalPrice();
