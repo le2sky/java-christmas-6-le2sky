@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menus;
+import christmas.domain.menu.specific.BeverageMenu;
 import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,9 @@ class OrderMenuServiceTest {
     private Menus createMenus() {
         return Menus.from(List.of(
                 MainMenu.of("까르보나라", 1_000),
-                MainMenu.of("불닭볶음면", 2_000)));
+                MainMenu.of("불닭볶음면", 2_000),
+                BeverageMenu.of("포카리스웨트", 1_000),
+                BeverageMenu.of("제로콜라", 1_000)));
     }
 
     @DisplayName("생성 테스트")
@@ -111,5 +114,18 @@ class OrderMenuServiceTest {
         assertThatThrownBy(() -> orderMenuService.order(notIncludedLineItems))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("존재하지 않는 상품은 주문할 수 없습니다.");
+    }
+
+    @DisplayName("오직 음료 메뉴만 주문할 수 없다.")
+    @Test
+    void checkOnlyBeverageMenu() {
+        List<OrderLineItem> onlyBeverageOrdered = List.of(
+                OrderLineItem.of(BeverageMenu.of("포카리스웨트", 1_000), 2),
+                OrderLineItem.of(BeverageMenu.of("제로콜라", 1_000), 1)
+        );
+
+        assertThatThrownBy(() -> orderMenuService.order(onlyBeverageOrdered))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("음료만 주문할 수 없습니다.");
     }
 }

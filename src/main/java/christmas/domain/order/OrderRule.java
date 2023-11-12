@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.util.ObjectUtil.requireIncludeNonNull;
 import static christmas.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.menu.Menu;
 import christmas.domain.menu.Menus;
 import java.util.List;
 
@@ -15,6 +16,7 @@ class OrderRule {
     private static final String EXCEED_ORDER_QUANTITY_MESSAGE = "최대 주문 수량은 " + MAX_ORDER_QUANTITY + "개입니다.";
     private static final String EMPTY_LINE_ITEM_MESSAGE = "적어도 1개 이상 주문해야합니다.";
     private static final String NOT_EXIST_LINE_ITEM_MESSAGE = "존재하지 않는 상품은 주문할 수 없습니다.";
+    private static final String ONLY_BEVERAGE_ORDER_MESSAGE = "음료만 주문할 수 없습니다.";
 
     private OrderRule() {
     }
@@ -65,5 +67,18 @@ class OrderRule {
 
     private static boolean isNotExistMenus(Menus baseMenus, Menus orderedMenus) {
         return !baseMenus.containsAll(orderedMenus);
+    }
+
+    public static void validateOnlyBeverage(List<OrderLineItem> lineItems) {
+        if (calculateBeverageCount(lineItems) == lineItems.size()) {
+            throw new IllegalArgumentException(ONLY_BEVERAGE_ORDER_MESSAGE);
+        }
+    }
+
+    private static int calculateBeverageCount(List<OrderLineItem> lineItems) {
+        return (int) lineItems.stream()
+                .map(OrderLineItem::getMenu)
+                .filter(Menu::isBeverage)
+                .count();
     }
 }

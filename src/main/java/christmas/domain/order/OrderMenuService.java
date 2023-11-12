@@ -24,6 +24,7 @@ public class OrderMenuService {
     public Order order(List<OrderLineItem> lineItems) {
         OrderRule.validateLineItem(lineItems);
         OrderRule.validateExistLineItem(lineItems, menus);
+        OrderRule.validateOnlyBeverage(lineItems);
 
         return Order.from(lineItems);
     }
