@@ -1,7 +1,7 @@
 package christmas.domain.order;
 
-import static christmas.util.NumberUtil.requirePositiveNumber;
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.NumberUtil.requirePositiveNumber;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;

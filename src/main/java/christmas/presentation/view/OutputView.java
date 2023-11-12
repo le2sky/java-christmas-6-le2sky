@@ -3,7 +3,7 @@ package christmas.presentation.view;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Money;
-import christmas.util.CurrencyFormatter;
+import christmas.global.util.CurrencyFormatter;
 
 public class OutputView {
 

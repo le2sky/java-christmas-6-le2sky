@@ -1,6 +1,6 @@
 package christmas.infrastructure;
 
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;

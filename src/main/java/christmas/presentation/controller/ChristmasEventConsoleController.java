@@ -9,14 +9,14 @@ import christmas.presentation.mapper.ObjectMapper;
 import christmas.presentation.view.InputView;
 import christmas.presentation.view.OutputView;
 
-public class ChristmasEventController {
+public class ChristmasEventConsoleController {
 
     private static final String INVALID_ORDER_MESSAGE = "유효하지 않은 주문입니다.";
 
     private final OrderService orderService;
     private final OrderQueryService orderQueryService;
 
-    public ChristmasEventController(OrderService orderService, OrderQueryService orderQueryService) {
+    public ChristmasEventConsoleController(OrderService orderService, OrderQueryService orderQueryService) {
         this.orderService = orderService;
         this.orderQueryService = orderQueryService;
     }

@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.global.util;
 
 import java.util.List;
 import java.util.Objects;

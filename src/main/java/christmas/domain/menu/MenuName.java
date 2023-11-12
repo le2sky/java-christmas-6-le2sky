@@ -1,7 +1,7 @@
 package christmas.domain.menu;
 
-import static christmas.util.ObjectUtil.requireNonNull;
-import static christmas.util.StringUtil.requireNotBlank;
+import static christmas.global.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.StringUtil.requireNotBlank;
 
 import java.util.Objects;
 

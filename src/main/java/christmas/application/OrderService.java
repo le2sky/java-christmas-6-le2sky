@@ -1,7 +1,7 @@
 package christmas.application;
 
-import static christmas.util.ObjectUtil.requireIncludeNonNull;
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.ObjectUtil.requireIncludeNonNull;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;

@@ -1,16 +1,13 @@
 package christmas;
 
-import christmas.application.OrderQueryService;
-import christmas.application.OrderService;
-import christmas.infrastructure.SimpleMenuRepository;
-import christmas.presentation.controller.ChristmasEventController;
+import christmas.global.config.PresentationConfig;
+import christmas.presentation.controller.ChristmasEventConsoleController;
 
 public class Application {
 
     public static void main(String[] args) {
-        ChristmasEventController christmasEventController =
-                new ChristmasEventController(new OrderService(new SimpleMenuRepository()), new OrderQueryService());
+        ChristmasEventConsoleController controller = PresentationConfig.eventController();
 
-        christmasEventController.run();
+        controller.run();
     }
 }

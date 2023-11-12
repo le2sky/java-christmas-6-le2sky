@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.global.util;
 
 import christmas.domain.common.Money;
 import java.text.NumberFormat;

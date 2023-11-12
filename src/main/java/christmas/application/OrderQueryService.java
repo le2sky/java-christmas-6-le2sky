@@ -1,6 +1,6 @@
 package christmas.application;
 
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;

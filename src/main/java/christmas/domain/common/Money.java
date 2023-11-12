@@ -1,6 +1,6 @@
 package christmas.domain.common;
 
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import java.util.Objects;
 

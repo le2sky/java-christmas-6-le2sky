@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.global.util;
 
 public class NumberUtil {
 

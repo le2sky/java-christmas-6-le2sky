@@ -1,6 +1,6 @@
 package christmas.domain.order;
 
-import static christmas.util.ObjectUtil.requireNonNull;
+import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.menu.Menus;
 import java.util.List;
