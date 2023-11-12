@@ -35,6 +35,10 @@ public class OrderLineItem {
         return menu;
     }
 
+    public String getName() {
+        return menu.getName();
+    }
+
     public int getQuantity() {
         return quantity;
     }

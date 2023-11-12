@@ -21,4 +21,8 @@ public class Order {
                 .reduce(Money::add)
                 .orElseGet(Money::zero);
     }
+
+    public List<OrderLineItem> getLineItems() {
+        return lineItems;
+    }
 }
