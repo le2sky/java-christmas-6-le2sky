@@ -6,7 +6,6 @@ import static christmas.util.ObjectUtil.requireNonNull;
 import christmas.domain.menu.Menus;
 import java.util.List;
 
-// TODO : 도메인에서 발생하는 예외 유형은 상세한 메시지를 사용하고, 외부에서 캐치해서 일관된 메시지를 받을 수 있도록 처리하는 건 어떨까?
 class OrderRule {
 
     private static final int MAX_ORDER_QUANTITY = 20;
