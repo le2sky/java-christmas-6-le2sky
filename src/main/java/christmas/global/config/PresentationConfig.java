@@ -1,14 +1,14 @@
 package christmas.global.config;
 
-import christmas.presentation.controller.ChristmasEventConsoleController;
+import christmas.presentation.controller.ChristmasEventController;
 
 public class PresentationConfig {
 
     private PresentationConfig() {
     }
 
-    public static ChristmasEventConsoleController eventController() {
-        return new ChristmasEventConsoleController(
+    public static ChristmasEventController eventController() {
+        return new ChristmasEventController(
                 ApplicationConfig.orderService(),
                 ApplicationConfig.orderQueryService());
     }
