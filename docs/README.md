@@ -196,7 +196,7 @@
     - 더하기 기능 ✓
     - 빼기 기능 ✓
     - 곱하기 기능 ✓
-    - 비교 기능 (lessThanEqual)
+    - 비교 기능 (greaterThanEqual)
 
 - 날짜 기능
     - 날짜 생성 기능 ✓
