@@ -4,6 +4,7 @@ import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
+import christmas.domain.common.Date;
 import christmas.presentation.mapper.constants.OrderRequestMappingRule;
 import java.util.Arrays;
 import java.util.List;
@@ -31,12 +32,12 @@ public class ObjectMapper {
     private static OrderLineItemRequest generateOrderLineItemRequest(String item) {
         String[] splitItem = item.split(OrderRequestMappingRule.VALUE_DELIMITER);
 
-        return new OrderLineItemRequest(splitItem[0], mapToInt(splitItem[1]));
+        return new OrderLineItemRequest(splitItem[0], Integer.parseInt(splitItem[1]));
     }
 
-    public static int mapToInt(String input) throws IllegalArgumentException {
+    public static Date mapToDate(String input) throws IllegalArgumentException {
         requireNonNull(input, UNKNOWN_INPUT_MESSAGE);
 
-        return Integer.parseInt(input);
+        return Date.from(Integer.parseInt(input));
     }
 }

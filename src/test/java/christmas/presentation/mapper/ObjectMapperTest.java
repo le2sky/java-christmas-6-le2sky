@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
+import christmas.domain.common.Date;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,12 +25,12 @@ class ObjectMapperTest {
         assertThat(result).isEqualTo(expected);
     }
 
-    @DisplayName("주어진 문자열을 숫자로 만들 수 있다.")
+    @DisplayName("주어진 문자열을 날짜로 만들 수 있다.")
     @Test
     void mapToInt() {
-        int result = ObjectMapper.mapToInt("2");
+        Date result = ObjectMapper.mapToDate("2");
 
-        assertThat(result).isEqualTo(2);
+        assertThat(result.getDayOfMonth()).isEqualTo(2);
     }
 
     @DisplayName("알 수 없는 문자열이 주어진 경우, 주문 요청 객체를 매핑할 수 없다.")
@@ -40,10 +41,10 @@ class ObjectMapperTest {
                 .hasMessage("유효한 문자열을 입력해주세요.");
     }
 
-    @DisplayName("알 수 없는 문자열이 주어진 경우, 숫자로 매핑할 수 없다.")
+    @DisplayName("알 수 없는 문자열이 주어진 경우, 날짜로 매핑할 수 없다.")
     @Test
     void checkInputNonNullForNumber() {
-        assertThatThrownBy(() -> ObjectMapper.mapToInt(null))
+        assertThatThrownBy(() -> ObjectMapper.mapToDate(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("유효한 문자열을 입력해주세요.");
     }

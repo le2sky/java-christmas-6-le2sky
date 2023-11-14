@@ -33,8 +33,7 @@ public class ChristmasEventController {
     private Date createDate() {
         String input = InputView.readOrderDate(Date.BASE_MONTH);
 
-        // TODO : ObjectMapper.mapToDate 로 개선
-        return Date.from(ObjectMapper.mapToInt(input));
+        return ObjectMapper.mapToDate(input);
     }
 
     private Order createOrder() {
