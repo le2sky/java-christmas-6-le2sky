@@ -3,6 +3,9 @@ package christmas.domain.event;
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.domain.common.Date;
+import christmas.domain.common.Money;
+import christmas.domain.menu.Menu;
+import christmas.domain.menu.specific.EmptyMenu;
 import christmas.domain.order.Order;
 
 public class Event {
@@ -23,5 +26,14 @@ public class Event {
         requireNonNull(orderDate, UNKNOWN_ORDER_DATE_MESSAGE);
 
         return new Event(order, orderDate);
+    }
+
+    public Menu present(Menu presentMenu) {
+        Money totalPrice = order.calculateTotalPrice();
+        if (totalPrice.isGreaterThanEqual(120_000)) {
+            return presentMenu;
+        }
+
+        return EmptyMenu.newInstance();
     }
 }
