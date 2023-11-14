@@ -31,4 +31,25 @@ class DateTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("날짜는 1과 31 사이의 수를 입력해주세요.");
     }
+
+    @DisplayName("다른 날짜와 비교할 수 있다.(isLaterThan)")
+    @Test
+    void isLaterThan() {
+        Date date = Date.from(3);
+        Date other = Date.from(2);
+
+        boolean result = date.isLaterThan(other);
+
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("알 수 없는 날짜와 비교할 수 없다.")
+    @Test
+    void checkDateNonNull() {
+        Date date = Date.from(3);
+
+        assertThatThrownBy(() -> date.isLaterThan(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 날짜입니다.");
+    }
 }
