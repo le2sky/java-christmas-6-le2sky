@@ -74,8 +74,8 @@ class OrderMenuServiceTest {
     void checkTotalQuantity() {
         List<OrderLineItem> lineItems = new ArrayList<>();
         int maxCount = 21;
-        for (int count = 0; count < maxCount; count = count + 2) {
-            lineItems.add(OrderLineItem.of(MainMenu.of("까르보나라" + count, 1_000), 2));
+        for (int count = 0; count < maxCount; count++) {
+            lineItems.add(OrderLineItem.of(MainMenu.of("까르보나라" + count, 1_000), 1));
         }
 
         assertThatThrownBy(() -> orderMenuService.order(lineItems))

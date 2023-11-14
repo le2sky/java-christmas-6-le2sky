@@ -41,7 +41,7 @@ class OrderRule {
     }
 
     private static void checkTotalQuantity(List<OrderLineItem> lineItems) {
-        if (calculateTotalQuantity(lineItems) >= MAX_ORDER_QUANTITY) {
+        if (calculateTotalQuantity(lineItems) > MAX_ORDER_QUANTITY) {
             throw new IllegalArgumentException(EXCEED_ORDER_QUANTITY_MESSAGE);
         }
     }
