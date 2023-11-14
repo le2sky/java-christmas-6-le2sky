@@ -33,6 +33,7 @@ public class ChristmasEventController {
     private Date createDate() {
         String input = InputView.readOrderDate(Date.BASE_MONTH);
 
+        // TODO : ObjectMapper.mapToDate 로 개선
         return Date.from(ObjectMapper.mapToInt(input));
     }
 
@@ -45,7 +46,9 @@ public class ChristmasEventController {
     private void printOrderResult(Order order, Date orderDate) {
         OutputView.printResultHeader(Date.BASE_MONTH, orderDate.getDayOfMonth());
         OutputView.printOrderItem(orderQueryService.queryOrderResult(order));
+        // TODO : orderQueryService.queryTotalPrice로 이동
         OutputView.printPriceBeforeApplyDiscount(order.calculateTotalPrice());
+        // TODO : printOrderResult 시작부에 Event 객체를 생성하고, queryPresentMenu(event)로 결과 받아오도록 개선
         OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(order, orderDate));
     }
 }
