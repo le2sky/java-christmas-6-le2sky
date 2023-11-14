@@ -7,9 +7,7 @@ import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
-import christmas.domain.common.Date;
 import christmas.domain.common.Money;
-import christmas.domain.event.Event;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
 import christmas.infrastructure.SimpleMenuRepository;
@@ -44,21 +42,29 @@ class OrderQueryServiceTest {
                 .hasMessage("알 수 없는 주문입니다.");
     }
 
+    @DisplayName("알 수 없는 주문에 대한 증정 메뉴를 조회할 수 없다.")
+    @Test
+    void queryPresentMenuWithNull() {
+        assertThatThrownBy(() -> orderQueryService.queryPresentMenu(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 주문입니다.");
+    }
+
     @DisplayName("주문에 대한 증정 메뉴를 조회할 수 있다.")
     @Test
-    void present() {
+    void queryPresentMenu() {
         OrderService orderService = new OrderService(new SimpleMenuRepository());
         OrderRequest orderRequest = new OrderRequest(List.of(
                 new OrderLineItemRequest("해산물파스타", 12)
         ));
         Order order = orderService.order(orderRequest);
 
-        Menu result = orderQueryService.queryPresentMenu(Event.of(order, Date.from(3)));
+        Menu result = orderQueryService.queryPresentMenu(order);
 
         assertThat(result.getName()).isEqualTo("샴페인");
     }
 
-    @DisplayName("알 수 없는 주문의 총 주문 금액을 조회할 수 없다.,")
+    @DisplayName("알 수 없는 주문의 총 주문 금액을 조회할 수 없다.")
     @Test
     void queryTotalPriceWithNull() {
         assertThatThrownBy(() -> orderQueryService.queryTotalPrice(null))

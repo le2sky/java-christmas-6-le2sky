@@ -5,7 +5,6 @@ import static christmas.global.util.ObjectUtil.requireNonNull;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Money;
-import christmas.domain.event.Event;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;
 import christmas.domain.order.Order;
@@ -45,7 +44,9 @@ public class OrderQueryService {
         return order.calculateTotalPrice();
     }
 
-    public Menu queryPresentMenu(Event event) {
-        return event.present(menuRepository.findByName(PRESENT_MENU_NAME));
+    public Menu queryPresentMenu(Order order) {
+        requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
+
+        return order.present(menuRepository.findByName(PRESENT_MENU_NAME));
     }
 }

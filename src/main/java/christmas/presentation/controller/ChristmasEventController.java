@@ -5,7 +5,6 @@ import static christmas.presentation.exception.ExceptionHandler.handle;
 import christmas.application.OrderQueryService;
 import christmas.application.OrderService;
 import christmas.domain.common.Date;
-import christmas.domain.event.Event;
 import christmas.domain.order.Order;
 import christmas.presentation.mapper.ObjectMapper;
 import christmas.presentation.view.InputView;
@@ -44,10 +43,9 @@ public class ChristmasEventController {
     }
 
     private void printOrderResult(Order order, Date orderDate) {
-        Event event = Event.of(order, orderDate);
         OutputView.printResultHeader(Date.BASE_MONTH, orderDate.getDayOfMonth());
         OutputView.printOrderItem(orderQueryService.queryOrderResult(order));
         OutputView.printPriceBeforeApplyDiscount(orderQueryService.queryTotalPrice(order));
-        OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(event));
+        OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(order));
     }
 }
