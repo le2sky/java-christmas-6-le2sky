@@ -10,6 +10,7 @@ import christmas.domain.order.Order;
 
 public class Event {
 
+    private static final int TOTAL_PRICE_STANDARD_FOR_PRESENT = 120_000;
     private static final String UNKNOWN_ORDER_MESSAGE = "알 수 없는 주문입니다.";
     private static final String UNKNOWN_ORDER_DATE_MESSAGE = "알 수 없는 주문 일자입니다.";
 
@@ -30,7 +31,7 @@ public class Event {
 
     public Menu present(Menu presentMenu) {
         Money totalPrice = order.calculateTotalPrice();
-        if (totalPrice.isGreaterThanEqual(120_000)) {
+        if (totalPrice.isGreaterThanEqual(TOTAL_PRICE_STANDARD_FOR_PRESENT)) {
             return presentMenu;
         }
 
