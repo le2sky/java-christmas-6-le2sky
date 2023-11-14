@@ -45,8 +45,7 @@ public class ChristmasEventController {
     private void printOrderResult(Order order, Date orderDate) {
         OutputView.printResultHeader(Date.BASE_MONTH, orderDate.getDayOfMonth());
         OutputView.printOrderItem(orderQueryService.queryOrderResult(order));
-        // TODO : orderQueryService.queryTotalPrice로 이동
-        OutputView.printPriceBeforeApplyDiscount(order.calculateTotalPrice());
+        OutputView.printPriceBeforeApplyDiscount(orderQueryService.queryTotalPrice(order));
         // TODO : printOrderResult 시작부에 Event 객체를 생성하고, queryPresentMenu(event)로 결과 받아오도록 개선
         OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(order, orderDate));
     }

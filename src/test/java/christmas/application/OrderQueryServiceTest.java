@@ -8,6 +8,7 @@ import christmas.application.request.OrderRequest;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Date;
+import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
 import christmas.infrastructure.SimpleMenuRepository;
@@ -51,8 +52,30 @@ class OrderQueryServiceTest {
         ));
         Order order = orderService.order(orderRequest);
 
-        Menu presentMenu = orderQueryService.queryPresentMenu(order, Date.from(3));
+        Menu result = orderQueryService.queryPresentMenu(order, Date.from(3));
 
-        assertThat(presentMenu.getName()).isEqualTo("샴페인");
+        assertThat(result.getName()).isEqualTo("샴페인");
+    }
+
+    @DisplayName("알 수 없는 주문의 총 주문 금액을 조회할 수 없다.,")
+    @Test
+    void queryTotalPriceWithNull() {
+        assertThatThrownBy(() -> orderQueryService.queryTotalPrice(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 주문입니다.");
+    }
+
+    @DisplayName("할인 이전 총 주문 금액을 조회할 수 있다.")
+    @Test
+    void queryTotalPrice() {
+        OrderService orderService = new OrderService(new SimpleMenuRepository());
+        OrderRequest orderRequest = new OrderRequest(List.of(
+                new OrderLineItemRequest("해산물파스타", 2)
+        ));
+        Order order = orderService.order(orderRequest);
+
+        Money result = orderQueryService.queryTotalPrice(order);
+
+        assertThat(result).isEqualTo(Money.from(70_000));
     }
 }

@@ -5,6 +5,7 @@ import static christmas.global.util.ObjectUtil.requireNonNull;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Date;
+import christmas.domain.common.Money;
 import christmas.domain.event.Event;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;
@@ -37,6 +38,12 @@ public class OrderQueryService {
 
     public OrderLineItemResponse mapToOrderLineItemResponse(OrderLineItem orderLineItem) {
         return new OrderLineItemResponse(orderLineItem.getName(), orderLineItem.getQuantity());
+    }
+
+    public Money queryTotalPrice(Order order) {
+        requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
+
+        return order.calculateTotalPrice();
     }
 
     public Menu queryPresentMenu(Order order, Date orderDate) {
