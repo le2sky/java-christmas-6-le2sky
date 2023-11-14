@@ -40,8 +40,8 @@ public class Money {
         return new Money(this.amount * multiplier);
     }
 
-    public boolean isLessThanEqual(int amount) {
-        return this.amount <= amount;
+    public boolean isGreaterThanEqual(int amount) {
+        return this.amount >= amount;
     }
 
     public long getAmount() {

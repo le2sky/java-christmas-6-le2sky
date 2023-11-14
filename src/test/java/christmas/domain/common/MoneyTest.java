@@ -78,13 +78,13 @@ class MoneyTest {
         assertThat(result).isEqualTo(Money.from(2_000));
     }
 
-    @DisplayName("정수와 비교 연산을 할 수 있다.(lessThanEqual)")
-    @ValueSource(ints = {1_001, 1_000})
+    @DisplayName("정수와 비교 연산을 할 수 있다.(GreaterThanEqual)")
+    @ValueSource(ints = {1_000, 999})
     @ParameterizedTest
-    void lessThanEqual(int source) {
+    void isGreaterThanEqual(int source) {
         Money money = Money.from(1_000);
 
-        boolean result = money.isLessThanEqual(source);
+        boolean result = money.isGreaterThanEqual(source);
 
         assertThat(result).isTrue();
     }
