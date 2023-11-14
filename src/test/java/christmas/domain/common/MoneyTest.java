@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class MoneyTest {
 
@@ -74,5 +76,16 @@ class MoneyTest {
         Money result = money.multiply(2);
 
         assertThat(result).isEqualTo(Money.from(2_000));
+    }
+
+    @DisplayName("정수와 비교 연산을 할 수 있다.(lessThanEqual)")
+    @ValueSource(ints = {1_001, 1_000})
+    @ParameterizedTest
+    void lessThanEqual(int source) {
+        Money money = Money.from(1_000);
+
+        boolean result = money.isLessThanEqual(source);
+
+        assertThat(result).isTrue();
     }
 }
