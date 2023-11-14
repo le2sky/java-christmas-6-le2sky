@@ -4,6 +4,10 @@ import static christmas.global.util.ObjectUtil.requireNonNull;
 
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
+import christmas.domain.common.Date;
+import christmas.domain.event.Event;
+import christmas.domain.menu.Menu;
+import christmas.domain.menu.MenuRepository;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderLineItem;
 import java.util.List;
@@ -11,6 +15,13 @@ import java.util.List;
 public class OrderQueryService {
 
     private static final String UNKNOWN_ORDER_MESSAGE = "알 수 없는 주문입니다.";
+    private static final String PRESENT_MENU_NAME = "샴페인";
+
+    private final MenuRepository menuRepository;
+
+    public OrderQueryService(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
+    }
 
     public OrderResponse queryOrderResult(Order order) {
         requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
@@ -26,5 +37,11 @@ public class OrderQueryService {
 
     public OrderLineItemResponse mapToOrderLineItemResponse(OrderLineItem orderLineItem) {
         return new OrderLineItemResponse(orderLineItem.getName(), orderLineItem.getQuantity());
+    }
+
+    public Menu queryPresentMenu(Order order, Date orderDate) {
+        Event event = Event.of(order, orderDate);
+
+        return event.present(menuRepository.findByName(PRESENT_MENU_NAME));
     }
 }

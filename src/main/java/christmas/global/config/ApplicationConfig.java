@@ -13,6 +13,6 @@ public class ApplicationConfig {
     }
 
     public static OrderQueryService orderQueryService() {
-        return new OrderQueryService();
+        return new OrderQueryService(PersistenceConfig.menuRepository());
     }
 }

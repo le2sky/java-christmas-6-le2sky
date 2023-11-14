@@ -7,6 +7,8 @@ import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
+import christmas.domain.common.Date;
+import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
 import christmas.infrastructure.SimpleMenuRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +17,7 @@ import java.util.List;
 
 class OrderQueryServiceTest {
 
-    private final OrderQueryService orderQueryService = new OrderQueryService();
+    private final OrderQueryService orderQueryService = new OrderQueryService(new SimpleMenuRepository());
 
     @DisplayName("주문 내역을 조회할 수 있다")
     @Test
@@ -38,5 +40,19 @@ class OrderQueryServiceTest {
         assertThatThrownBy(() -> orderQueryService.queryOrderResult(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 주문입니다.");
+    }
+
+    @DisplayName("주문에 대한 증정 메뉴를 조회할 수 있다.")
+    @Test
+    void present() {
+        OrderService orderService = new OrderService(new SimpleMenuRepository());
+        OrderRequest orderRequest = new OrderRequest(List.of(
+                new OrderLineItemRequest("해산물파스타", 12)
+        ));
+        Order order = orderService.order(orderRequest);
+
+        Menu presentMenu = orderQueryService.queryPresentMenu(order, Date.from(3));
+
+        assertThat(presentMenu.getName()).isEqualTo("샴페인");
     }
 }
