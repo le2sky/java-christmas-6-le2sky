@@ -6,7 +6,7 @@ import christmas.domain.menu.MenuName;
 
 public class EmptyMenu extends AbstractMenu {
 
-    private static final String EMPTY_MENU_NAME = "없음";
+    private static final String EMPTY_MENU_NAME = "";
     private static final int EMPTY_MENU_PRICE_AMOUNT = 0;
 
     private EmptyMenu(MenuName name, Money price) {

@@ -46,5 +46,6 @@ public class ChristmasEventController {
         OutputView.printResultHeader(Date.BASE_MONTH, orderDate.getDayOfMonth());
         OutputView.printOrderItem(orderQueryService.queryOrderResult(order));
         OutputView.printPriceBeforeApplyDiscount(order.calculateTotalPrice());
+        OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(order, orderDate));
     }
 }

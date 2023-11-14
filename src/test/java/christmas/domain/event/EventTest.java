@@ -59,7 +59,7 @@ class EventTest {
 
         Menu result = event.present(BeverageMenu.of("샴페인", 2_000));
 
-        assertThat(result.getName()).isEqualTo("없음");
+        assertThat(result.getName()).isEmpty();
     }
 
     private Order createOrder(int quantity) {
