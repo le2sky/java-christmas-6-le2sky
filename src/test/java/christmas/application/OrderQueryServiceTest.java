@@ -9,6 +9,7 @@ import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Date;
 import christmas.domain.common.Money;
+import christmas.domain.event.Event;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
 import christmas.infrastructure.SimpleMenuRepository;
@@ -52,7 +53,7 @@ class OrderQueryServiceTest {
         ));
         Order order = orderService.order(orderRequest);
 
-        Menu result = orderQueryService.queryPresentMenu(order, Date.from(3));
+        Menu result = orderQueryService.queryPresentMenu(Event.of(order, Date.from(3)));
 
         assertThat(result.getName()).isEqualTo("샴페인");
     }
