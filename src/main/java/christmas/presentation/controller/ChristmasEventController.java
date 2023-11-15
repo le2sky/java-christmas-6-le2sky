@@ -31,11 +31,15 @@ public class ChristmasEventController {
     }
 
     private Supplier<Date> createDate() {
-        return () -> (ObjectMapper.mapToDate(InputView.readOrderDate(Date.BASE_MONTH)));
+        OutputView.printReadDateMessage(Date.BASE_MONTH);
+
+        return () -> (ObjectMapper.mapToDate(InputView.readLine()));
     }
 
     private Supplier<Order> createOrder() {
-        return () -> (orderService.order(ObjectMapper.mapToOrderRequest(InputView.readOrderMenu())));
+        OutputView.printReadOrderMessage();
+
+        return () -> (orderService.order(ObjectMapper.mapToOrderRequest(InputView.readLine())));
     }
 
     private void printOrderResult(Order order, Date orderDate) {

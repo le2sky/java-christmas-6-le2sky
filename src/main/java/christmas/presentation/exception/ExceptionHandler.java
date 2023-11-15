@@ -1,5 +1,6 @@
 package christmas.presentation.exception;
 
+import camp.nextstep.edu.missionutils.Console;
 import christmas.presentation.view.ExceptionView;
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
@@ -14,6 +15,7 @@ public class ExceptionHandler {
             return supplier.get();
         } catch (IllegalArgumentException | NoSuchElementException e) {
             ExceptionView.printRetryMessage(message);
+            Console.readLine();
             return handle(supplier, message);
         }
     }

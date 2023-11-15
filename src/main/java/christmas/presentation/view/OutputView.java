@@ -8,10 +8,14 @@ import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderEventBadge;
 import christmas.global.util.CurrencyFormatter;
+import christmas.presentation.mapper.constants.OrderRequestMappingRule;
 import java.util.stream.Collectors;
 
 public class OutputView {
 
+    private static final String READ_ORDER_DATE_FORMAT =
+            "안녕하세요! 우테코 식당 %d월 이벤트 플래너입니다.%n%d월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)%n";
+    private static final String READ_ORDER_MENU_FORMAT = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. %s)%n";
     private static final String EMPTY_MESSAGE = "없음";
     private static final String RESULT_HEADER_FORMAT = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n";
     private static final String ORDER_RESULT_HEADER = "<주문 메뉴>";
@@ -27,6 +31,10 @@ public class OutputView {
     private static final String PRESENT_BADGE_HEADER_FORMAT = "<%d월 이벤트 배지>%n";
 
     private OutputView() {
+    }
+
+    public static void printReadDateMessage(int baseMonth) {
+        System.out.format(READ_ORDER_DATE_FORMAT, baseMonth, baseMonth);
     }
 
     public static void printResultHeader(int month, int dayOfMonth) {
@@ -107,5 +115,9 @@ public class OutputView {
         System.out.format(PRESENT_BADGE_HEADER_FORMAT, month);
         System.out.println(orderEventBadge.getName());
         System.out.println();
+    }
+
+    public static void printReadOrderMessage() {
+        System.out.format(READ_ORDER_MENU_FORMAT, OrderRequestMappingRule.createSample());
     }
 }
