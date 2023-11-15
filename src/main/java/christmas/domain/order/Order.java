@@ -60,7 +60,7 @@ public class Order {
         discountResults.addAll(applyTotalPriceDiscount(orderDate));
         discountResults.addAll(applyMenuDiscount(orderDate));
 
-        return discountResults;
+        return Collections.unmodifiableList(discountResults);
     }
 
     private List<DiscountResult> applyTotalPriceDiscount(Date orderDate) {
