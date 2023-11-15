@@ -8,6 +8,7 @@ import christmas.domain.discount.DiscountResult;
 import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.specific.BeverageMenu;
+import christmas.domain.menu.specific.DessertMenu;
 import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,13 +69,17 @@ class OrderTest {
     @Test
     void calculateDiscountBenefit() {
         Order order = Order.of(List.of(
-                OrderLineItem.of(MainMenu.of("까르보나라", 1_000), 2),
-                OrderLineItem.of(MainMenu.of("불닭까르보나라", 10_000), 2)
+                OrderLineItem.of(DessertMenu.of("붕어싸만코", 10_000), 2),
+                OrderLineItem.of(DessertMenu.of("치즈케이크", 10_000), 2)
         ), List.of(new ChristmasDDayDiscountPolicy()));
 
         List<DiscountResult> result = order.calculateDiscountBenefit(Date.from(25));
 
-        assertThat(result).containsExactly(new DiscountResult("크리스마스 디데이 할인", Money.from(-3_400)));
+        assertThat(result)
+                .containsExactly(
+                        new DiscountResult("크리스마스 디데이 할인", Money.from(-3_400)),
+                        new DiscountResult("평일 할인", Money.from(-8_092))
+                );
     }
 
     @DisplayName("총주문 금액 10,000원 이상인 경우에만 혜택을 적용할 수 있다.")

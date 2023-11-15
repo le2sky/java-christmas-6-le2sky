@@ -1,11 +1,15 @@
 package christmas.domain.order;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.reducing;
+
 import christmas.domain.common.Date;
 import christmas.domain.common.Money;
 import christmas.domain.discount.DateDiscountPolicy;
 import christmas.domain.discount.DiscountResult;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.specific.EmptyMenu;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,9 +56,31 @@ public class Order {
     }
 
     private List<DiscountResult> applyDiscountPolicies(Date orderDate) {
+        List<DiscountResult> discountResults = new ArrayList<>();
+        discountResults.addAll(applyTotalPriceDiscount(orderDate));
+        discountResults.addAll(applyMenuDiscount(orderDate));
+
+        return discountResults;
+    }
+
+    private List<DiscountResult> applyTotalPriceDiscount(Date orderDate) {
         return policies.stream()
                 .filter(dateDiscountPolicy -> dateDiscountPolicy.isDiscountable(orderDate))
                 .map(dateDiscountPolicy -> dateDiscountPolicy.discount(orderDate))
+                .toList();
+    }
+
+    private List<DiscountResult> applyMenuDiscount(Date orderDate) {
+        return lineItems.stream()
+                .filter(orderLineItem -> orderLineItem.isDiscountable(orderDate))
+                .map(orderLineItem -> orderLineItem.calculateEachDiscountBenefit(orderDate))
+                .collect(groupingBy(
+                        DiscountResult::policyName,
+                        reducing(Money.zero(), DiscountResult::amount, Money::add))
+                )
+                .entrySet()
+                .stream()
+                .map(entry -> new DiscountResult(entry.getKey(), entry.getValue()))
                 .toList();
     }
 

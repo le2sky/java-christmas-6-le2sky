@@ -3,7 +3,9 @@ package christmas.domain.order;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.domain.common.Date;
 import christmas.domain.common.Money;
+import christmas.domain.discount.DiscountResult;
 import christmas.domain.menu.specific.MainMenu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,5 +42,15 @@ class OrderLineItemTest {
         Money result = item.calculateEachPrice();
 
         assertThat(result).isEqualTo(Money.from(2_000));
+    }
+
+    @DisplayName("각 주문 항목의 할인 적용 결과를 조회할 수 있다.")
+    @Test
+    void calculateEachDiscountBenefit() {
+        OrderLineItem item = OrderLineItem.of(MainMenu.of("까르보나라", 10_000), 2);
+
+        DiscountResult result = item.calculateEachDiscountBenefit(Date.from(30));
+
+        assertThat(result).isEqualTo(new DiscountResult("주말 할인", Money.from(-4_046)));
     }
 }

@@ -1,6 +1,7 @@
 package christmas.domain.menu.specific;
 
 import christmas.domain.common.Money;
+import christmas.domain.discount.policy.NoneDiscountPolicy;
 import christmas.domain.menu.AbstractMenu;
 import christmas.domain.menu.MenuName;
 
@@ -10,7 +11,7 @@ public class EmptyMenu extends AbstractMenu {
     private static final int EMPTY_MENU_PRICE_AMOUNT = 0;
 
     private EmptyMenu(MenuName name, Money price) {
-        super(name, price);
+        super(name, price, new NoneDiscountPolicy());
     }
 
     public static EmptyMenu newInstance() {
@@ -18,7 +19,7 @@ public class EmptyMenu extends AbstractMenu {
     }
 
     @Override
-    public Boolean isBeverage() {
+    public boolean isBeverage() {
         return false;
     }
 }

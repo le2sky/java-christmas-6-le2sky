@@ -3,7 +3,9 @@ package christmas.domain.order;
 import static christmas.global.util.NumberUtil.requirePositiveNumber;
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.common.Date;
 import christmas.domain.common.Money;
+import christmas.domain.discount.DiscountResult;
 import christmas.domain.menu.Menu;
 import java.util.Objects;
 
@@ -29,6 +31,14 @@ public class OrderLineItem {
 
     public Money calculateEachPrice() {
         return menu.calculatePriceWith(quantity);
+    }
+
+    public DiscountResult calculateEachDiscountBenefit(Date orderDate) {
+        return menu.calculateDiscountBenefitWith(orderDate, quantity);
+    }
+
+    public boolean isDiscountable(Date orderDate) {
+        return menu.isDiscountable(orderDate);
     }
 
     public Menu getMenu() {
