@@ -37,6 +37,10 @@ public class OutputView {
         System.out.format(READ_ORDER_DATE_FORMAT, baseMonth, baseMonth);
     }
 
+    public static void printReadOrderMessage() {
+        System.out.format(READ_ORDER_MENU_FORMAT, OrderRequestMappingRule.createSample());
+    }
+
     public static void printResultHeader(int month, int dayOfMonth) {
         System.out.format(RESULT_HEADER_FORMAT, month, dayOfMonth);
         System.out.println();
@@ -114,10 +118,5 @@ public class OutputView {
     public static void printPresentedBadge(int month, OrderEventBadge orderEventBadge) {
         System.out.format(PRESENT_BADGE_HEADER_FORMAT, month);
         System.out.println(orderEventBadge.getName());
-        System.out.println();
-    }
-
-    public static void printReadOrderMessage() {
-        System.out.format(READ_ORDER_MENU_FORMAT, OrderRequestMappingRule.createSample());
     }
 }
