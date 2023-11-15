@@ -15,12 +15,12 @@ public class InputView {
     public static String readOrderMenu() {
         System.out.format(READ_ORDER_MENU_FORMAT, OrderRequestMappingRule.createSample());
 
-        return Console.readLine().trim();
+        return Console.readLine();
     }
 
     public static String readOrderDate(int month) {
         System.out.format(READ_ORDER_DATE_FORMAT, month, month);
 
-        return Console.readLine().trim();
+        return Console.readLine();
     }
 }

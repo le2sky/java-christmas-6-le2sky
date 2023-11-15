@@ -16,11 +16,14 @@ public class ObjectMapper {
     private ObjectMapper() {
     }
 
-    public static OrderRequest mapToOrderRequest(String input)
-            throws IndexOutOfBoundsException, IllegalArgumentException {
+    public static OrderRequest mapToOrderRequest(String input) throws IllegalArgumentException {
         requireNonNull(input, UNKNOWN_INPUT_MESSAGE);
 
-        return new OrderRequest(mapToOrderLineItemRequest(input.split(OrderRequestMappingRule.SPLIT_DELIMITER)));
+        try {
+            return new OrderRequest(mapToOrderLineItemRequest(input.split(OrderRequestMappingRule.SPLIT_DELIMITER)));
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     private static List<OrderLineItemRequest> mapToOrderLineItemRequest(String[] items) {

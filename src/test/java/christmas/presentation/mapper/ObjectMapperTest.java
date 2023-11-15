@@ -54,7 +54,7 @@ class ObjectMapperTest {
     @ParameterizedTest
     void checkIndexOutOfBoundsException(String source) {
         assertThatThrownBy(() -> ObjectMapper.mapToOrderRequest(source))
-                .isInstanceOf(IndexOutOfBoundsException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("숫자 포맷 예외 - number format exception")
@@ -62,6 +62,6 @@ class ObjectMapperTest {
     @ParameterizedTest
     void checkNumberFormatException(String source) {
         assertThatThrownBy(() -> ObjectMapper.mapToOrderRequest(source))
-                .isInstanceOf(NumberFormatException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
