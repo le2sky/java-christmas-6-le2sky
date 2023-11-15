@@ -13,13 +13,8 @@ public class ExceptionHandler {
         try {
             return supplier.get();
         } catch (IllegalArgumentException | NoSuchElementException e) {
-            return handleExpected(supplier, message);
+            ExceptionView.printRetryMessage(message);
+            return handle(supplier, message);
         }
-    }
-
-    private static <T> T handleExpected(Supplier<T> supplier, String message) {
-        ExceptionView.printRetryMessage(message);
-
-        return handle(supplier, message);
     }
 }
