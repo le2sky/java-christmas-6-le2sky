@@ -1,10 +1,13 @@
 package christmas.presentation.view;
 
+import christmas.application.response.OrderBenefitItemResponse;
+import christmas.application.response.OrderBenefitResponse;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import christmas.global.util.CurrencyFormatter;
+import java.util.stream.Collectors;
 
 public class OutputView {
 
@@ -16,6 +19,8 @@ public class OutputView {
     private static final String PRICE_FORMAT = "%s%n";
     private static final String PRESENT_MENU_HEADER = "<증정 메뉴>";
     private static final String PRESENT_MENU_FORMAT = "%s 1개";
+    private static final String ORDER_BENEFIT_HEADER = "<혜택 내역>";
+    private static final String ORDER_BENEFIT_FORMAT = "%s: %s";
 
     private OutputView() {
     }
@@ -53,5 +58,27 @@ public class OutputView {
         }
 
         return String.format(PRESENT_MENU_FORMAT, menuName);
+    }
+
+    public static void printOrderBenefits(OrderBenefitResponse orderBenefitResponse) {
+        System.out.println(ORDER_BENEFIT_HEADER);
+        System.out.println(buildOrderBenefitMessage(orderBenefitResponse));
+        System.out.println();
+    }
+
+    private static String buildOrderBenefitMessage(OrderBenefitResponse orderBenefitResponse) {
+        if (orderBenefitResponse.isEmpty()) {
+            return EMPTY_MESSAGE;
+        }
+
+        return orderBenefitResponse.orderBenefitItemResponses().stream()
+                .map(OutputView::buildOrderBenefitItemMessage)
+                .collect(Collectors.joining(System.lineSeparator()));
+    }
+
+    private static String buildOrderBenefitItemMessage(OrderBenefitItemResponse orderBenefitItemResponse) {
+        return String.format(ORDER_BENEFIT_FORMAT,
+                orderBenefitItemResponse.benefitName(),
+                CurrencyFormatter.format(orderBenefitItemResponse.benefitTotalAmount().getAmount()));
     }
 }
