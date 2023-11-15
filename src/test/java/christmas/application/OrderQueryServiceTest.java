@@ -103,7 +103,9 @@ class OrderQueryServiceTest {
         OrderBenefitResponse expected = new OrderBenefitResponse(
                 List.of(
                         new OrderBenefitItemResponse("크리스마스 디데이 할인", Money.from(-1_200)),
-                        new OrderBenefitItemResponse("특별 할인", Money.from(-1_000))));
+                        new OrderBenefitItemResponse("특별 할인", Money.from(-1_000)),
+                        new OrderBenefitItemResponse("증정 이벤트", Money.from(-25_000))
+                ));
         assertThat(result).isEqualTo(expected);
     }
 

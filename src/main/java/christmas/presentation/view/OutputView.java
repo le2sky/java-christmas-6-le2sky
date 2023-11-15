@@ -18,7 +18,7 @@ public class OutputView {
     private static final String ORDER_PRICE_BEFORE_DISCOUNT_HEADER = "<할인 전 총주문 금액>";
     private static final String PRICE_FORMAT = "%s%n";
     private static final String PRESENT_MENU_HEADER = "<증정 메뉴>";
-    private static final String PRESENT_MENU_FORMAT = "%s 1개";
+    private static final String PRESENT_MENU_FORMAT = "%s %d개";
     private static final String ORDER_BENEFIT_HEADER = "<혜택 내역>";
     private static final String ORDER_BENEFIT_FORMAT = "%s: %s";
 
@@ -46,18 +46,18 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printPresentedMenu(Menu menu) {
+    public static void printPresentedMenu(Menu menu, int presentMenuCount) {
         System.out.println(PRESENT_MENU_HEADER);
-        System.out.println(buildPresentedMenuMessage(menu.getName()));
+        System.out.println(buildPresentedMenuMessage(menu.getName(), presentMenuCount));
         System.out.println();
     }
 
-    private static String buildPresentedMenuMessage(String menuName) {
+    private static String buildPresentedMenuMessage(String menuName, int presentMenuCount) {
         if (menuName.isEmpty()) {
             return EMPTY_MESSAGE;
         }
 
-        return String.format(PRESENT_MENU_FORMAT, menuName);
+        return String.format(PRESENT_MENU_FORMAT, menuName, presentMenuCount);
     }
 
     public static void printOrderBenefits(OrderBenefitResponse orderBenefitResponse) {
