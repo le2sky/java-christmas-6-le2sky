@@ -13,6 +13,7 @@ import christmas.domain.common.Date;
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
+import christmas.domain.order.OrderEventBadge;
 import christmas.infrastructure.SimpleMenuRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -140,5 +141,30 @@ class OrderQueryServiceTest {
         assertThatThrownBy(() -> orderQueryService.queryDiscountedTotalPrice(null, Date.from(3)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 주문입니다.");
+    }
+
+    @DisplayName("알 수 없는 주문에 대한 수여 뱃지를 조회할 수 없다.")
+    @Test
+    void queryPresentBadgeWithNullOrder() {
+        assertThatThrownBy(() -> orderQueryService.queryPresentBadge(null, Date.from(3)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 주문입니다.");
+    }
+
+    @DisplayName("주문에 대한 수여 뱃지를 조회할 수 있다.")
+    @Test
+    void queryPresentBadge() {
+        OrderService orderService = new OrderService(new SimpleMenuRepository());
+        OrderRequest orderRequest = new OrderRequest(List.of(
+                new OrderLineItemRequest("티본스테이크", 1),
+                new OrderLineItemRequest("바비큐립", 1),
+                new OrderLineItemRequest("초코케이크", 2),
+                new OrderLineItemRequest("제로콜라", 1)
+        ));
+        Order order = orderService.order(orderRequest);
+
+        OrderEventBadge result = orderQueryService.queryPresentBadge(order, Date.from(3));
+
+        assertThat(result).isEqualTo(OrderEventBadge.SANTA);
     }
 }

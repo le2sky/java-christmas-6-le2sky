@@ -12,6 +12,7 @@ import christmas.domain.discount.DiscountResult;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;
 import christmas.domain.order.Order;
+import christmas.domain.order.OrderEventBadge;
 import christmas.domain.order.OrderLineItem;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +45,14 @@ public class OrderQueryService {
 
     private OrderLineItemResponse mapToOrderLineItemResponse(OrderLineItem orderLineItem) {
         return new OrderLineItemResponse(orderLineItem.getName(), orderLineItem.getQuantity());
+    }
+
+    public OrderEventBadge queryPresentBadge(Order order, Date orderDate) {
+        requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
+        Money totalBenefitAmount = queryOrderBenefits(order, orderDate).getTotalBenefitAmount();
+        System.out.println(totalBenefitAmount.getAmount());
+
+        return OrderEventBadge.from(totalBenefitAmount);
     }
 
     public OrderBenefitResponse queryOrderBenefits(Order order, Date orderDate) {
@@ -98,4 +107,5 @@ public class OrderQueryService {
 
         return order.calculateDiscountedTotalPrice(orderDate);
     }
+
 }
