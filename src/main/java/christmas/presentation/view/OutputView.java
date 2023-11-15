@@ -21,6 +21,7 @@ public class OutputView {
     private static final String PRESENT_MENU_FORMAT = "%s %d개";
     private static final String ORDER_BENEFIT_HEADER = "<혜택 내역>";
     private static final String ORDER_BENEFIT_FORMAT = "%s: %s";
+    private static final String ORDER_BENEFIT_PRICE_HEADER = "<총혜택 금액>";
 
     private OutputView() {
     }
@@ -61,6 +62,11 @@ public class OutputView {
     }
 
     public static void printOrderBenefits(OrderBenefitResponse orderBenefitResponse) {
+        printBenefitList(orderBenefitResponse);
+        printBenefitTotalAmount(orderBenefitResponse);
+    }
+
+    private static void printBenefitList(OrderBenefitResponse orderBenefitResponse) {
         System.out.println(ORDER_BENEFIT_HEADER);
         System.out.println(buildOrderBenefitMessage(orderBenefitResponse));
         System.out.println();
@@ -80,5 +86,11 @@ public class OutputView {
         return String.format(ORDER_BENEFIT_FORMAT,
                 orderBenefitItemResponse.benefitName(),
                 CurrencyFormatter.format(orderBenefitItemResponse.benefitTotalAmount().getAmount()));
+    }
+
+    private static void printBenefitTotalAmount(OrderBenefitResponse orderBenefitResponse) {
+        System.out.println(ORDER_BENEFIT_PRICE_HEADER);
+        System.out.println(CurrencyFormatter.format(orderBenefitResponse.getTotalBenefitAmount().getAmount()));
+        System.out.println();
     }
 }
