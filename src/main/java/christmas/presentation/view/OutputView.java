@@ -6,6 +6,7 @@ import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderEventBadge;
 import christmas.global.util.CurrencyFormatter;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ public class OutputView {
     private static final String ORDER_BENEFIT_FORMAT = "%s: %s";
     private static final String ORDER_BENEFIT_PRICE_HEADER = "<총혜택 금액>";
     private static final String ORDER_PRICE_AFTER_DISCOUNT_HEADER = "<할인 후 예상 결제 금액>";
+    private static final String PRESENT_BADGE_HEADER_FORMAT = "<%d월 이벤트 배지>%n";
 
     private OutputView() {
     }
@@ -98,6 +100,12 @@ public class OutputView {
     public static void printPriceAfterApplyDiscount(Money money) {
         System.out.println(ORDER_PRICE_AFTER_DISCOUNT_HEADER);
         System.out.format(PRICE_FORMAT, CurrencyFormatter.format(money.getAmount()));
+        System.out.println();
+    }
+
+    public static void printPresentedBadge(int month, OrderEventBadge orderEventBadge) {
+        System.out.format(PRESENT_BADGE_HEADER_FORMAT, month);
+        System.out.println(orderEventBadge.getName());
         System.out.println();
     }
 }

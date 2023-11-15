@@ -50,7 +50,6 @@ public class OrderQueryService {
     public OrderEventBadge queryPresentBadge(Order order, Date orderDate) {
         requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
         Money totalBenefitAmount = queryOrderBenefits(order, orderDate).getTotalBenefitAmount();
-        System.out.println(totalBenefitAmount.getAmount());
 
         return OrderEventBadge.from(totalBenefitAmount);
     }

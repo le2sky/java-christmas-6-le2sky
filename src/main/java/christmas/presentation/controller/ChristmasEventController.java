@@ -49,5 +49,6 @@ public class ChristmasEventController {
         OutputView.printPresentedMenu(orderQueryService.queryPresentMenu(order), OrderQueryService.PRESENT_MENU_COUNT);
         OutputView.printOrderBenefits(orderQueryService.queryOrderBenefits(order, orderDate));
         OutputView.printPriceAfterApplyDiscount(orderQueryService.queryDiscountedTotalPrice(order, orderDate));
+        OutputView.printPresentedBadge(Date.BASE_MONTH, orderQueryService.queryPresentBadge(order, orderDate));
     }
 }
