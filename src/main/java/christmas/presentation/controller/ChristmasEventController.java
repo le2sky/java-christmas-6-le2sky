@@ -9,6 +9,7 @@ import christmas.domain.order.Order;
 import christmas.presentation.mapper.ObjectMapper;
 import christmas.presentation.view.InputView;
 import christmas.presentation.view.OutputView;
+import java.util.function.Supplier;
 
 public class ChristmasEventController {
 
@@ -24,22 +25,17 @@ public class ChristmasEventController {
     }
 
     public void run() {
-        Date orderDate = handle(this::createDate, INVALID_DATE_MESSAGE);
-        Order order = handle(this::createOrder, INVALID_ORDER_MESSAGE);
-
+        Date orderDate = handle(createDate(), INVALID_DATE_MESSAGE);
+        Order order = handle(createOrder(), INVALID_ORDER_MESSAGE);
         printOrderResult(order, orderDate);
     }
 
-    private Date createDate() {
-        String input = InputView.readOrderDate(Date.BASE_MONTH);
-
-        return ObjectMapper.mapToDate(input);
+    private Supplier<Date> createDate() {
+        return () -> (ObjectMapper.mapToDate(InputView.readOrderDate(Date.BASE_MONTH)));
     }
 
-    private Order createOrder() {
-        String input = InputView.readOrderMenu();
-
-        return orderService.order(ObjectMapper.mapToOrderRequest(input));
+    private Supplier<Order> createOrder() {
+        return () -> (orderService.order(ObjectMapper.mapToOrderRequest(InputView.readOrderMenu())));
     }
 
     private void printOrderResult(Order order, Date orderDate) {
