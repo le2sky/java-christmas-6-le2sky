@@ -6,6 +6,7 @@ import christmas.domain.common.Date;
 import christmas.domain.common.Money;
 import christmas.domain.discount.DiscountResult;
 import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
+import christmas.domain.discount.policy.SpecialDiscountPolicy;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.specific.BeverageMenu;
 import christmas.domain.menu.specific.DessertMenu;
@@ -92,5 +93,20 @@ class OrderTest {
         List<DiscountResult> result = order.calculateDiscountBenefit(Date.from(25));
 
         assertThat(result).isEmpty();
+    }
+
+    @DisplayName("주문의 할인 이후 예상 결제 금액을 조회할 수 있다.")
+    @Test
+    void queryDiscountedTotalPrice() {
+        Order order = Order.of(List.of(
+                        OrderLineItem.of(MainMenu.of("티본스테이크", 55_000), 1),
+                        OrderLineItem.of(MainMenu.of("바비큐립", 54_000), 1),
+                        OrderLineItem.of(DessertMenu.of("초코케이크", 15_000), 2),
+                        OrderLineItem.of(BeverageMenu.of("제로콜라", 3_000), 1)),
+                List.of(new ChristmasDDayDiscountPolicy(), new SpecialDiscountPolicy()));
+
+        Money result = order.calculateDiscountedTotalPrice(Date.from(3));
+
+        assertThat(result).isEqualTo(Money.from(135_754));
     }
 }

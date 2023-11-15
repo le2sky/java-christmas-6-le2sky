@@ -37,6 +37,15 @@ public class Order {
                 .orElseGet(Money::zero);
     }
 
+    public Money calculateDiscountedTotalPrice(Date orderDate) {
+        Money totalPrice = calculateTotalPrice();
+        Money totalDiscountAmount = calculateDiscountBenefit(orderDate).stream()
+                .map(DiscountResult::amount)
+                .reduce(Money.zero(), Money::add);
+
+        return totalPrice.add(totalDiscountAmount);
+    }
+
     public Menu present(Menu presentMenu) {
         Money totalPrice = calculateTotalPrice();
         if (totalPrice.isGreaterThanEqual(TOTAL_PRICE_STANDARD_FOR_PRESENT)) {

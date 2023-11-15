@@ -92,4 +92,10 @@ public class OrderQueryService {
 
         return order.calculateTotalPrice();
     }
+
+    public Money queryDiscountedTotalPrice(Order order, Date orderDate) {
+        requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
+
+        return order.calculateDiscountedTotalPrice(orderDate);
+    }
 }

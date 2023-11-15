@@ -116,4 +116,29 @@ class OrderQueryServiceTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 주문입니다.");
     }
+
+    @DisplayName("주문의 할인 이후 예상 결제 금액을 조회할 수 있다.")
+    @Test
+    void queryDiscountedTotalPrice() {
+        OrderService orderService = new OrderService(new SimpleMenuRepository());
+        OrderRequest orderRequest = new OrderRequest(List.of(
+                new OrderLineItemRequest("티본스테이크", 1),
+                new OrderLineItemRequest("바비큐립", 1),
+                new OrderLineItemRequest("초코케이크", 2),
+                new OrderLineItemRequest("제로콜라", 1)
+        ));
+        Order order = orderService.order(orderRequest);
+
+        Money result = orderQueryService.queryDiscountedTotalPrice(order, Date.from(3));
+
+        assertThat(result).isEqualTo(Money.from(135_754));
+    }
+
+    @DisplayName("알 수 없는 주문의 할인 이후 예상 결제 금액을 조회할 수 없다.")
+    @Test
+    void queryDiscountedTotalPriceWithNullOrder() {
+        assertThatThrownBy(() -> orderQueryService.queryDiscountedTotalPrice(null, Date.from(3)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 주문입니다.");
+    }
 }
