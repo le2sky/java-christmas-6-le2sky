@@ -8,7 +8,7 @@ import christmas.domain.discount.DiscountResult;
 public class ChristmasDDayDiscountPolicy extends DateDiscountPolicy {
 
     private static final Date DISCOUNTABLE_STANDARD_DATE = Date.from(25);
-    private static final Money BASE_DISCOUNT_AMOUNT = Money.from(-1000);
+    private static final Money BASE_DISCOUNT_AMOUNT = Money.from(-1_000);
     private static final Money ADD_AMOUNT = Money.from(-100);
     private static final String POLICY_NAME = "크리스마스 디데이 할인";
 
