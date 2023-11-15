@@ -7,8 +7,8 @@ import java.util.Objects;
 
 public class Date {
 
-    public static final int BASE_YEAR = 2023;
     public static final int BASE_MONTH = 12;
+    private static final int BASE_YEAR = 2023;
     private static final int DAY_OF_MONTH_MIN_RANGE = 1;
     private static final int DAY_OF_MONTH_MAX_RANGE = 31;
     private static final String INVALID_DAY_OF_MONTH_RANGE_MESSAGE =
