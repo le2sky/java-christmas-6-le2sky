@@ -98,10 +98,12 @@ class OrderQueryServiceTest {
         ));
         Order order = orderService.order(orderRequest);
 
-        OrderBenefitResponse result = orderQueryService.queryOrderBenefits(order, Date.from(2));
+        OrderBenefitResponse result = orderQueryService.queryOrderBenefits(order, Date.from(3));
 
         OrderBenefitResponse expected = new OrderBenefitResponse(
-                List.of(new OrderBenefitItemResponse("크리스마스 디데이 할인", Money.from(-1_100))));
+                List.of(
+                        new OrderBenefitItemResponse("크리스마스 디데이 할인", Money.from(-1_200)),
+                        new OrderBenefitItemResponse("특별 할인", Money.from(-1_000))));
         assertThat(result).isEqualTo(expected);
     }
 

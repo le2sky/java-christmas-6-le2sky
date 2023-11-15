@@ -2,6 +2,8 @@ package christmas.domain.common;
 
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
+import java.util.Objects;
+
 public class Date {
 
     public static final int BASE_MONTH = 12;
@@ -48,5 +50,18 @@ public class Date {
 
     public int getDayOfMonth() {
         return dayOfMonth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return dayOfMonth == date.dayOfMonth;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dayOfMonth);
     }
 }
