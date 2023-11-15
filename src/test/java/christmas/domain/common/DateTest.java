@@ -52,4 +52,24 @@ class DateTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("알 수 없는 날짜입니다.");
     }
+
+    @DisplayName("평일인지 확인할 수 있다.")
+    @Test
+    void isWeekday() {
+        Date date = Date.from(31);
+
+        boolean result = date.isWeekDay();
+
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("주말인지 확인할 수 있다.")
+    @Test
+    void isWeekend() {
+        Date date = Date.from(30);
+
+        boolean result = date.isWeekend();
+
+        assertThat(result).isTrue();
+    }
 }

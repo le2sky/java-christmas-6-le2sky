@@ -2,10 +2,12 @@ package christmas.domain.common;
 
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
+import christmas.global.util.DateUtil;
 import java.util.Objects;
 
 public class Date {
 
+    public static final int BASE_YEAR = 2023;
     public static final int BASE_MONTH = 12;
     private static final int DAY_OF_MONTH_MIN_RANGE = 1;
     private static final int DAY_OF_MONTH_MAX_RANGE = 31;
@@ -46,6 +48,14 @@ public class Date {
         requireNonNull(target, UNKNOWN_DATE_MESSAGE);
 
         return this.dayOfMonth > target.dayOfMonth;
+    }
+
+    public boolean isWeekDay() {
+        return DateUtil.isWeekday(BASE_YEAR, BASE_MONTH, dayOfMonth);
+    }
+
+    public boolean isWeekend() {
+        return DateUtil.isWeekend(BASE_YEAR, BASE_MONTH, dayOfMonth);
     }
 
     public int getDayOfMonth() {
