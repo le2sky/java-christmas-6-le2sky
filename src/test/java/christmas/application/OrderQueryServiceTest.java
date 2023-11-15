@@ -5,8 +5,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.application.request.OrderLineItemRequest;
 import christmas.application.request.OrderRequest;
+import christmas.application.response.OrderBenefitItemResponse;
+import christmas.application.response.OrderBenefitResponse;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
+import christmas.domain.common.Date;
 import christmas.domain.common.Money;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.Order;
@@ -84,5 +87,29 @@ class OrderQueryServiceTest {
         Money result = orderQueryService.queryTotalPrice(order);
 
         assertThat(result).isEqualTo(Money.from(70_000));
+    }
+
+    @DisplayName("혜택 결과를 조회할 수 있다.")
+    @Test
+    void queryOrderBenefits() {
+        OrderService orderService = new OrderService(new SimpleMenuRepository());
+        OrderRequest orderRequest = new OrderRequest(List.of(
+                new OrderLineItemRequest("해산물파스타", 12)
+        ));
+        Order order = orderService.order(orderRequest);
+
+        OrderBenefitResponse result = orderQueryService.queryOrderBenefits(order, Date.from(2));
+
+        OrderBenefitResponse expected = new OrderBenefitResponse(
+                List.of(new OrderBenefitItemResponse("크리스마스 디데이 할인", Money.from(-1_100))));
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @DisplayName("알 수 없는 주문의 혜택 결과를 조회할 수 없다.")
+    @Test
+    void queryOrderBenefitsWithNullOrder() {
+        assertThatThrownBy(() -> orderQueryService.queryOrderBenefits(null, Date.from(3)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 주문입니다.");
     }
 }

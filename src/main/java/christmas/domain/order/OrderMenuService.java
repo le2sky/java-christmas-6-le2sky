@@ -2,6 +2,7 @@ package christmas.domain.order;
 
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
+import christmas.domain.discount.policy.ChristmasDDayDiscountPolicy;
 import christmas.domain.menu.Menus;
 import java.util.List;
 
@@ -26,6 +27,6 @@ public class OrderMenuService {
         OrderRule.validateExistLineItem(lineItems, menus);
         OrderRule.validateOnlyBeverage(lineItems);
 
-        return Order.from(lineItems);
+        return Order.of(lineItems, List.of(new ChristmasDDayDiscountPolicy()));
     }
 }

@@ -2,9 +2,13 @@ package christmas.application;
 
 import static christmas.global.util.ObjectUtil.requireNonNull;
 
+import christmas.application.response.OrderBenefitItemResponse;
+import christmas.application.response.OrderBenefitResponse;
 import christmas.application.response.OrderLineItemResponse;
 import christmas.application.response.OrderResponse;
+import christmas.domain.common.Date;
 import christmas.domain.common.Money;
+import christmas.domain.discount.DiscountResult;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuRepository;
 import christmas.domain.order.Order;
@@ -25,10 +29,10 @@ public class OrderQueryService {
     public OrderResponse queryOrderResult(Order order) {
         requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
 
-        return mapToResponseEntity(order.getLineItems());
+        return mapToOrderResultResponseEntity(order.getLineItems());
     }
 
-    private OrderResponse mapToResponseEntity(List<OrderLineItem> lineItems) {
+    private OrderResponse mapToOrderResultResponseEntity(List<OrderLineItem> lineItems) {
         return new OrderResponse(lineItems.stream()
                 .map(this::mapToOrderLineItemResponse)
                 .toList());
@@ -36,6 +40,22 @@ public class OrderQueryService {
 
     public OrderLineItemResponse mapToOrderLineItemResponse(OrderLineItem orderLineItem) {
         return new OrderLineItemResponse(orderLineItem.getName(), orderLineItem.getQuantity());
+    }
+
+    public OrderBenefitResponse queryOrderBenefits(Order order, Date orderDate) {
+        requireNonNull(order, UNKNOWN_ORDER_MESSAGE);
+
+        return mapToBenefitResponseEntity(order.calculateDiscountBenefit(orderDate));
+    }
+
+    private OrderBenefitResponse mapToBenefitResponseEntity(List<DiscountResult> discountResults) {
+        return new OrderBenefitResponse(discountResults.stream()
+                .map(this::mapToOrderBenefitItemResponse)
+                .toList());
+    }
+
+    private OrderBenefitItemResponse mapToOrderBenefitItemResponse(DiscountResult discountResult) {
+        return new OrderBenefitItemResponse(discountResult.policyName(), discountResult.amount());
     }
 
     public Money queryTotalPrice(Order order) {
