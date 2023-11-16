@@ -1,7 +1,13 @@
 package christmas;
 
+import christmas.global.config.PresentationConfig;
+import christmas.presentation.controller.ChristmasEventController;
+
 public class Application {
+
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        ChristmasEventController controller = PresentationConfig.eventController();
+
+        controller.run();
     }
 }
